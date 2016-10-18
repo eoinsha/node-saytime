@@ -13,24 +13,24 @@ const log = console;
  * @param {object} options
  * @param {string} [options.out] Target wav filename
  * @param {function} cb Callback - invoked with error, result. Result is an object with properties
- *  `finalAudioPath` and `parts`, an array of {sentence, duration} parts in order
+ *  `output` (the output file path) and `parts`, an array of {sentence, duration} parts in order
  */
 module.exports = function(text, options, cb) {
   const opts = options || {};
 
   let tempDir;
 
-  const finalAudioPath = opts.out || path.join(__dirname, `${Nid(8)}.wav`);
+  const finalAudioPath = opts.out || path.join('.', `${Nid(8)}.wav`);
 
   Async.waterfall([
-      createTempDir,
-      genSilence,
-      splitText,
-      renderParts,
-      makePlaylist,
-      assembleAudio,
-      processResult,
-      cleanTempDir
+    createTempDir,
+    genSilence,
+    splitText,
+    renderParts,
+    makePlaylist,
+    assembleAudio,
+    processResult,
+    cleanTempDir
   ], cb);
 
   function splitText(cb) {
@@ -71,7 +71,7 @@ module.exports = function(text, options, cb) {
         return done(err);
       }
       return done(null, {
-        finalAudioPath,
+        output: finalAudioPath,
         parts: parts.map(part => ({
           duration: part.duration,
           sentence: part.sentence
@@ -126,12 +126,10 @@ module.exports = function(text, options, cb) {
    * Generate a silence audio file for inter-sentence pauses
    */
   function genSilence(cb) {
-    childProcess.execFile('ffmpeg', [ '-f', 'lavfi', '-i', 'anullsrc=sample_rate=16000', '-t', '1', path.join(tempDir, 'gap.wav') ], error => cb(error));
+    childProcess.execFile('ffmpeg', [ '-f', 'lavfi', '-i', 'anullsrc=sample_rate=16000', '-t', '0.5', path.join(tempDir, 'gap.wav') ], error => cb(error));
   }
 
   function cleanTempDir(result, cb) {
-//    Rimraf(tempDir, err => cb(err, result));
-    log.info(tempDir);
-    cb(null, result);
+    Rimraf(tempDir, err => cb(err, result));
   }
 }
