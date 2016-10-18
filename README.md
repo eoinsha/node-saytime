@@ -37,11 +37,18 @@ Output:
 RESULT { output: 'output.wav',
   parts:
    [ { duration: 2.341688,
-       sentence: 'There once was a young lady named bright' },
+       sentence: 'There once was a young lady named bright',
+       timestamp: 0 },
      { duration: 2.406938,
-       sentence: 'Whose speed was much faster than light' },
-     { duration: 1.473625, sentence: 'She set out one day' },
-     { duration: 1.162188, sentence: 'In a relative way' },
+       sentence: 'Whose speed was much faster than light',
+       timestamp: 2.841688 },
+     { duration: 1.473625,
+       sentence: 'She set out one day',
+       timestamp: 5.748626 },
+     { duration: 1.162188,
+       sentence: 'In a relative way',
+       timestamp: 7.722251 },
      { duration: 2.002438,
-       sentence: 'And returned on the previous night.' } ] }
+       sentence: 'And returned on the previous night.',
+       timestamp: 9.384439 } ] }
 ```

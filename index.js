@@ -8,12 +8,13 @@ const Rimraf = require('rimraf');
 
 const log = console;
 
+const GAP_LENGTH = 0.5;
 /**
  * @param {string} text Words, sentences, etc.
  * @param {object} options
  * @param {string} [options.out] Target wav filename
  * @param {function} cb Callback - invoked with error, result. Result is an object with properties
- *  `output` (the output file path) and `parts`, an array of {sentence, duration} parts in order
+ *  `output` (the output file path) and `parts`, an array of {sentence, duration, timestamp} parts in order
  */
 module.exports = function(text, options, cb) {
   const opts = options || {};
@@ -70,12 +71,20 @@ module.exports = function(text, options, cb) {
       if (err) {
         return done(err);
       }
+      const cleanParts = [];
+      let timestamp = 0;
+      parts.forEach(part => {
+        cleanParts.push({
+          duration: part.duration,
+          sentence: part.sentence,
+          timestamp
+        });
+        timestamp += part.duration + GAP_LENGTH;
+      });
+
       return done(null, {
         output: finalAudioPath,
-        parts: parts.map(part => ({
-          duration: part.duration,
-          sentence: part.sentence
-        }))
+        parts: cleanParts
       });
     });
   }
@@ -126,7 +135,7 @@ module.exports = function(text, options, cb) {
    * Generate a silence audio file for inter-sentence pauses
    */
   function genSilence(cb) {
-    childProcess.execFile('ffmpeg', [ '-f', 'lavfi', '-i', 'anullsrc=sample_rate=16000', '-t', '0.5', path.join(tempDir, 'gap.wav') ], error => cb(error));
+    childProcess.execFile('ffmpeg', [ '-f', 'lavfi', '-i', 'anullsrc=sample_rate=16000', '-t', GAP_LENGTH, path.join(tempDir, 'gap.wav') ], error => cb(error));
   }
 
   function cleanTempDir(result, cb) {
