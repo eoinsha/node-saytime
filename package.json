@@ -1,6 +1,6 @@
 {
   "name": "saytime",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Generate audio with timestamps on macOS",
   "main": "index.js",
   "scripts": {
