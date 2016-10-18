@@ -1,0 +1,24 @@
+{
+  "name": "saytime",
+  "version": "1.0.0",
+  "description": "Generate audio with timestamps on macOS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/eoinsha/node-saytime.git"
+  },
+  "author": "Eoin Shanaghy <eoin@showpiper.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/eoinsha/node-saytime/issues"
+  },
+  "homepage": "https://github.com/eoinsha/node-saytime#readme",
+  "dependencies": {
+    "async": "^2.1.2",
+    "nid": "^0.3.2",
+    "rimraf": "^2.5.4"
+  }
+}
