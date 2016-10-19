@@ -78,7 +78,8 @@ module.exports = function(text, options, cb) {
         cleanParts.push({
           duration: part.duration,
           sentence: part.sentence,
-          timestamp
+          timestamp,
+          after: GAP_LENGTH
         });
         timestamp += part.duration + GAP_LENGTH;
       });
