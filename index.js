@@ -9,12 +9,13 @@ const Rimraf = require('rimraf');
 const log = console;
 
 const GAP_LENGTH = 0.5;
+
 /**
  * @param {string} text Words, sentences, etc.
  * @param {object} options
  * @param {string} [options.out] Target wav filename
  * @param {function} cb Callback - invoked with error, result. Result is an object with properties
- *  `output` (the output file path) and `parts`, an array of {sentence, duration, timestamp} parts in order
+ *  `audioPath` (the output file path) and `parts`, an array of {sentence, duration, timestamp} parts in order
  */
 module.exports = function(text, options, cb) {
   const opts = options || {};
@@ -83,7 +84,7 @@ module.exports = function(text, options, cb) {
       });
 
       return done(null, {
-        output: finalAudioPath,
+        audioPath: finalAudioPath,
         parts: cleanParts
       });
     });

@@ -34,7 +34,7 @@ And returned on the previous night.
 
 Output:
 ```
-RESULT { output: 'output.wav',
+RESULT { audioPath: 'output.wav',
   parts:
    [ { duration: 2.341688,
        sentence: 'There once was a young lady named bright',
