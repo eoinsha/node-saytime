@@ -4,6 +4,7 @@
   "description": "Generate audio with timestamps on macOS",
   "main": "index.js",
   "scripts": {
+    "postversion": "git push origin HEAD && git push origin v${npm_package_version}",
     "test": "echo"
   },
   "repository": {

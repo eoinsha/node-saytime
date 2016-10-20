@@ -1,5 +1,6 @@
 const fs = require('fs');
 const childProcess = require('child_process');
+const os = require('os');
 const path = require('path');
 
 const Async = require('async');
@@ -127,7 +128,7 @@ module.exports = function(text, options, cb) {
   }
 
   function createTempDir(cb) {
-    fs.mkdtemp('/tmp/saytime-', (err, dir) => {
+    fs.mkdtemp(path.join(os.tmpdir(), 'saytime-'), (err, dir) => {
       tempDir = dir;
       cb(err);
     });

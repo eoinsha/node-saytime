@@ -15,4 +15,5 @@ lib-cov
 .build
 .pt
 *.swp
+*.wav
 .nyc_output/
